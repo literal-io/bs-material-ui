@@ -1363,6 +1363,7 @@ module Slide = {
         ~in_: option(bool)=?,
         ~direction_: option(Direction.t)=?,
         ~timeout: option({. "enter": float, "exit": float})=?,
+        ~style: option(ReactDOMRe.style)=?,
         children
       ) =>
     ReasonReact.wrapJsForReason(
@@ -1372,7 +1373,41 @@ module Slide = {
           {
             "in": unwrap_bool(in_),
             "direction": from_opt(option_map(Direction.to_string, direction_)),
-            "timeout": from_opt(timeout)
+            "timeout": from_opt(timeout),
+            "style": from_opt(style)
+          }
+        ),
+      children
+    );
+};
+
+module Snackbar = {
+  [@bs.module "material-ui/Snackbar"] external snackbar : ReasonReact.reactClass = "default";
+  module AnchorOrigin = {
+    type t =
+      | TopRight
+      | TopCenter
+      | TopLeft
+      | BottomRight
+      | BottomCenter
+      | BottomLeft;
+    let toObject =
+      fun
+      | TopRight => {"vertical": "top", "horizontal": "right"}
+      | TopCenter => {"vertical": "top", "horizontal": "center"}
+      | TopLeft => {"vertical": "top", "horizontal": "left"}
+      | BottomRight => {"vertical": "bottom", "horizontal": "right"}
+      | BottomCenter => {"vertical": "bottom", "horizontal": "center"}
+      | BottomLeft => {"vertical": "bottom", "horizontal": "left"};
+  };
+  let make = (~open_: option(bool)=?, ~anchorOrigin: option(AnchorOrigin.t)=?, children) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass=snackbar,
+      ~props=
+        Js.Nullable.(
+          {
+            "open": unwrap_bool(open_),
+            "anchorOrigin": from_opt(option_map(AnchorOrigin.toObject, anchorOrigin))
           }
         ),
       children
