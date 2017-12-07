@@ -28,14 +28,16 @@
     "format": "prettier --write ./*.{js,json} ./**/*.{js,json}"
   },
   "author": "Jonathon Kelly <jonathon@insidersbyte.com>",
-  "contributors": ["Remi Bernal <bernal.rs@gmail.com>"],
+  "contributors": [
+    "Remi Bernal <bernal.rs@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "bs-platform": "2.0.0",
     "husky": "0.14.3",
     "lint-staged": "4.3.0",
-    "material-ui": "1.0.0-beta.20",
+    "material-ui": "1.0.0-beta.22",
     "prettier": "1.8.2",
     "reason-react": "0.2.4"
   },
@@ -46,7 +48,13 @@
     "reason-react": "^0.2.4"
   },
   "lint-staged": {
-    "*.{js,json}": ["prettier --write", "git add"],
-    "src/**/*.re": ["refmt --in-place", "git add"]
+    "*.{js,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/*.re": [
+      "refmt --in-place",
+      "git add"
+    ]
   }
 }
