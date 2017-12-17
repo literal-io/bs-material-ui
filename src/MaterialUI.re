@@ -501,7 +501,7 @@ module Dialog = {
         ~onExit: option((unit => unit))=?,
         ~onExited: option((unit => unit))=?,
         ~onExiting: option((unit => unit))=?,
-        ~onRequestClose: option((unit => unit))=?,
+        ~onClose: option((unit => unit))=?,
         ~openDialog: option(bool)=?,
         children
       ) =>
@@ -525,7 +525,7 @@ module Dialog = {
             "onExit": from_opt(onExit),
             "onExited": from_opt(onExited),
             "onExiting": from_opt(onExiting),
-            "onRequestClose": from_opt(onRequestClose),
+            "onClose": from_opt(onClose),
             "open": from_opt(openDialog)
           }
         ),
@@ -592,7 +592,7 @@ module Drawer = {
         ~elevation: option(int)=?,
         ~transitionDuration: option(Js.t({..}))=?,
         ~modalProps: option(Js.t({..}))=?,
-        ~onRequestClose: option((unit => unit))=?,
+        ~onClose: option((unit => unit))=?,
         ~_open: option(bool)=?,
         ~slideProps: option(Js.t({..}))=?,
         ~_type: option(Type.t)=?,
@@ -610,7 +610,7 @@ module Drawer = {
             "elevation": from_opt(elevation),
             "transitionDuration": from_opt(transitionDuration),
             "ModalProps": from_opt(modalProps),
-            "onRequestClose": from_opt(onRequestClose),
+            "onClose": from_opt(onClose),
             "open": unwrap_bool(_open),
             "SlideProps": from_opt(slideProps),
             "type": from_opt(option_map(Type.to_string, _type)),
@@ -1221,6 +1221,35 @@ module List = {
     );
 };
 
+module Menu = {
+  [@bs.module "material-ui/Menu"] external reactClass : ReasonReact.reactClass = "default";
+  let make =
+      (
+        ~anchorEl: option(Dom.element)=?,
+        ~classes: option(string)=?,
+        ~className: option(string)=?,
+        ~onClose: option((ReactEventRe.Mouse.t => unit))=?,
+        ~open_: option(bool)=?,
+        ~style: option(ReactDOMRe.style)=?,
+        children
+      ) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass,
+      ~props=
+        Js.Nullable.(
+          {
+            "classes": from_opt(classes),
+            "className": from_opt(className),
+            "onClose": from_opt(onClose),
+            "open": unwrap_bool(open_),
+            "anchorEl": from_opt(anchorEl),
+            "style": from_opt(style)
+          }
+        ),
+      children
+    );
+};
+
 module MenuItem = {
   [@bs.module "material-ui/Menu"] external reactClass : ReasonReact.reactClass = "MenuItem";
   let make =
@@ -1741,8 +1770,8 @@ module Tooltip = {
         ~disableTriggerHover: option(bool)=?,
         ~disableTriggerTouch: option(bool)=?,
         ~id: option(string)=?,
-        ~onRequestClose: option((unit => unit))=?,
-        ~onRequestOpen: option((unit => unit))=?,
+        ~onClose: option((unit => unit))=?,
+        ~onOpen: option((unit => unit))=?,
         ~_open: option(bool)=?,
         /* TODO: is actually a Node */
         ~title: option(string)=?,
@@ -1764,8 +1793,8 @@ module Tooltip = {
             "disableTriggerHover": unwrap_bool(disableTriggerHover),
             "disableTriggerTouch": unwrap_bool(disableTriggerTouch),
             "id": from_opt(id),
-            "onRequestClose": from_opt(onRequestClose),
-            "onRequestOpen": from_opt(onRequestOpen),
+            "onClose": from_opt(onClose),
+            "onOpen": from_opt(onOpen),
             "open": unwrap_bool(_open),
             "title": from_opt(title),
             "enterDelay": from_opt(enterDelay),
