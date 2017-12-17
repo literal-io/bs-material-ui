@@ -850,7 +850,8 @@ module Grid = {
     );
 };
 
-module IconButton = {
+module Icon = {
+  [@bs.module "material-ui/Icon"] external reactClass : ReasonReact.reactClass = "default";
   module Color = {
     type t =
       | Default
@@ -866,12 +867,34 @@ module IconButton = {
       | Contrast => "contrast"
       | Accent => "accent";
   };
+  let make =
+      (
+        ~classes: option(Js.t({..}))=?,
+        ~color: option(Color.t)=?,
+        ~style: option(ReactDOMRe.style)=?,
+        children
+      ) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass,
+      ~props=
+        Js.Nullable.(
+          {
+            "classes": from_opt(classes),
+            "color": from_opt(option_map(Color.to_string, color)),
+            "style": from_opt(style)
+          }
+        ),
+      children
+    );
+};
+
+module IconButton = {
   [@bs.module "material-ui/IconButton"] external reactClass : ReasonReact.reactClass = "default";
   let make =
       (
         ~classes: option(Js.t({..}))=?,
         ~className: option(string)=?,
-        ~color: option(Color.t)=?,
+        ~color: option(Icon.Color.t)=?,
         ~disabled: option(bool)=?,
         ~disableRipple: option(bool)=?,
         ~style: option(ReactDOMRe.style)=?,
@@ -885,7 +908,7 @@ module IconButton = {
           {
             "classes": from_opt(classes),
             "className": from_opt(className),
-            "color": from_opt(option_map(Color.to_string, color)),
+            "color": from_opt(option_map(Icon.Color.to_string, color)),
             "disableRipple": unwrap_bool(disableRipple),
             "disabled": unwrap_bool(disabled),
             "style": from_opt(style),
@@ -1088,8 +1111,8 @@ module ListItemText = {
         ~className: option(string)=?,
         ~disableTypography: option(bool)=?,
         ~inset: option(bool)=?,
-        ~primary: option(string)=?,
-        ~secondary: option(string)=?,
+        ~primary: option(ReasonReact.reactElement)=?,
+        ~secondary: option(ReasonReact.reactElement)=?,
         ~style: option(ReactDOMRe.style)=?,
         children
       ) =>
@@ -1226,7 +1249,7 @@ module Menu = {
   let make =
       (
         ~anchorEl: option(Dom.element)=?,
-        ~classes: option(string)=?,
+        ~classes: option(Js.t({..}))=?,
         ~className: option(string)=?,
         ~onClose: option((ReactEventRe.Mouse.t => unit))=?,
         ~open_: option(bool)=?,
