@@ -1488,6 +1488,7 @@ module Slide = {
              }
            )=?,
         ~style: option(ReactDOMRe.style)=?,
+        ~onExit: option(unit => unit)=?,
         children
       ) =>
     ReasonReact.wrapJsForReason(
@@ -1498,6 +1499,7 @@ module Slide = {
             "in": unwrap_bool(in_),
             "direction": from_opt(option_map(Direction.to_string, direction_)),
             "timeout": from_opt(timeout),
+            "onExit": from_opt(onExit),
             "style": from_opt(style)
           }
         ),
@@ -1529,6 +1531,10 @@ module Snackbar = {
       (
         ~open_: option(bool)=?,
         ~anchorOrigin: option(AnchorOrigin.t)=?,
+        ~autoHideDuration: option(int)=?,
+        ~onClose: option(unit => unit)=?,
+        ~onExit: option(unit => unit)=?,
+        ~style: option(ReactDOMRe.style)=?,
         children
       ) =>
     ReasonReact.wrapJsForReason(
@@ -1537,6 +1543,10 @@ module Snackbar = {
         Js.Nullable.(
           {
             "open": unwrap_bool(open_),
+            "autoHideDuration": from_opt(autoHideDuration),
+            "onClose": from_opt(onClose),
+            "onExit": from_opt(onExit),
+            "style": from_opt(style),
             "anchorOrigin":
               from_opt(option_map(AnchorOrigin.toObject, anchorOrigin))
           }
