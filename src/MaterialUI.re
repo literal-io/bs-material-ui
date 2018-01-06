@@ -1534,6 +1534,7 @@ module Snackbar = {
         ~autoHideDuration: option(int)=?,
         ~onClose: option(unit => unit)=?,
         ~onExit: option(unit => unit)=?,
+        ~onExited: option(unit => unit)=?,
         ~style: option(ReactDOMRe.style)=?,
         children
       ) =>
@@ -1546,6 +1547,7 @@ module Snackbar = {
             "autoHideDuration": from_opt(autoHideDuration),
             "onClose": from_opt(onClose),
             "onExit": from_opt(onExit),
+            "onExited": from_opt(onExited),
             "style": from_opt(style),
             "anchorOrigin":
               from_opt(option_map(AnchorOrigin.toObject, anchorOrigin))
