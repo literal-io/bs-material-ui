@@ -487,8 +487,7 @@ module DialogContentText = {
 module DialogContent = {
   [@bs.module "material-ui/Dialog"]
   external reactClass : ReasonReact.reactClass = "DialogContent";
-  type dialogContentClasses = {root: option(string)};
-  let make = (~classes: option(dialogContentClasses)=?, children) =>
+  let make = (~classes: option(Js.t({..}))=?, children) =>
     ReasonReact.wrapJsForReason(
       ~reactClass,
       ~props=Js.Nullable.({"classes": from_opt(classes)}),
