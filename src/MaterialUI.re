@@ -1537,7 +1537,7 @@ module Snackbar = {
         ~open_: option(bool)=?,
         ~anchorOrigin: option(AnchorOrigin.t)=?,
         ~autoHideDuration: option(int)=?,
-        ~onClose: option(unit => unit)=?,
+        ~onClose: option((ReactEventRe.Mouse.t, string) => unit)=?,
         ~onExit: option(unit => unit)=?,
         ~onExited: option(unit => unit)=?,
         ~style: option(ReactDOMRe.style)=?,
