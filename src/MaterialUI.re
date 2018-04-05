@@ -1347,6 +1347,7 @@ module MenuItem = {
         ~onClick: option(ReactEventRe.Mouse.t => unit)=?,
         ~style: option(ReactDOMRe.style)=?,
         ~value: option([ | `String(string) | `Int(int)])=?,
+        ~dense: option(bool)=?,
         children
       ) =>
     ReasonReact.wrapJsForReason(
@@ -1359,6 +1360,7 @@ module MenuItem = {
             "component": from_opt(component),
             "role": from_opt(role),
             "selected": unwrap_bool(selected),
+            "dense": unwrap_bool(dense),
             "onClick": from_opt(onClick),
             "style": from_opt(style),
             "value": from_opt(option_map(unwrapValue, value))
