@@ -184,6 +184,7 @@ module Button = {
         ~raised=?,
         ~_type: option(string)=?,
         ~onClick: option(ReactEventRe.Mouse.t => unit)=?,
+        ~style: option(ReactDOMRe.style)=?,
         children
       ) =>
     ReasonReact.wrapJsForReason(
@@ -203,6 +204,7 @@ module Button = {
             "href": from_opt(href),
             "raised": unwrap_bool(raised),
             "type": from_opt(_type),
+            "style": from_opt(style),
             "onClick": from_opt(onClick)
           }
         ),
