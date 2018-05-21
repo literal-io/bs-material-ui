@@ -1317,6 +1317,10 @@ module Menu = {
         ~onClose: option(ReactEventRe.Mouse.t => unit)=?,
         ~open_: option(bool)=?,
         ~style: option(ReactDOMRe.style)=?,
+        ~onEnter: option(Dom.element => unit)=?,
+        ~onEntered: option(Dom.element => unit)=?,
+        ~onExit: option(Dom.element => unit)=?,
+        ~menuListProps: option(Js.t({..}))=?,
         children
       ) =>
     ReasonReact.wrapJsForReason(
@@ -1329,7 +1333,11 @@ module Menu = {
             "onClose": from_opt(onClose),
             "open": unwrap_bool(open_),
             "anchorEl": from_opt(anchorEl),
-            "style": from_opt(style)
+            "style": from_opt(style),
+            "onEnter": from_opt(onEnter),
+            "onEntered": from_opt(onEntered),
+            "onExit": from_opt(onExit),
+            "MenuListProps": from_opt(menuListProps)
           }
         ),
       children

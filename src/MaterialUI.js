@@ -1110,6 +1110,10 @@ function make$39(
   onClose,
   open_,
   style,
+  onEnter,
+  onEntered,
+  onExit,
+  menuListProps,
   children,
 ) {
   return ReasonReact.wrapJsForReason(
@@ -1121,6 +1125,10 @@ function make$39(
       open: unwrap_bool(open_),
       anchorEl: Js_null_undefined.from_opt(anchorEl),
       style: Js_null_undefined.from_opt(style),
+      onEnter: Js_null_undefined.from_opt(onEnter),
+      onEntered: Js_null_undefined.from_opt(onEntered),
+      onExit: Js_null_undefined.from_opt(onExit),
+      MenuListProps: Js_null_undefined.from_opt(menuListProps),
     },
     children,
   );
