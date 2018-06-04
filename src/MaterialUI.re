@@ -1987,3 +1987,16 @@ module Typography = {
       children
     );
 };
+
+module Zoom = {
+  [@bs.module "material-ui/transitions/Zoom"]
+  external zoom : ReasonReact.reactClass = "default";
+  let make =
+      (~in_: option(bool)=?, ~onExited: option(unit => unit)=?, children) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass=zoom,
+      ~props=
+        Js.Nullable.({"in": unwrap_bool(in_), "onExited": from_opt(onExited)}),
+      children
+    );
+};
